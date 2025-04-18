@@ -5,6 +5,7 @@ import { useLocation } from 'react-router';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { RootState } from '../../app/store';
 import { open, close, toggle } from './SidebarSlice';
+import logo from '../../assets/logo.png';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -39,8 +40,8 @@ const NavBar: React.FC = () => {
         </div>
         <div className="flex items-center gap-1">
           {/* Title & Logo */}
-          <img alt="logo"  className="w-5 h-5"/>
-          <strong className="cursor-pointer dark:text-white text-black">App_Name</strong>
+          <img alt="logo" src={logo} className="w-5 h-5"/>
+          <strong className="cursor-pointer dark:text-white text-black">NoteIt</strong>
         </div>
       </div>
       
