@@ -186,10 +186,22 @@
   --tt-selection-color: rgba(157, 138, 255, 0.2);
   --tt-card-bg-color: var(--white);
   --tt-card-border-color: var(--tt-gray-light-a-100);
+  
+  //Table Style
+  --border-color: #cfd0d2; // light border
+  --selected-cell-color: #3b82f6;
+  --resize-handle-color: #3b82f6;
+  --table-head-color:rgb(238, 235, 235);
 }
 
 /* Global colors - Dark mode */
 .dark {
+  //Table Style
+  --border-color: #374151; // Tailwind gray-700
+  --selected-cell-color: #60a5fa; // lighter blue for contrast
+  --resize-handle-color: #60a5fa;
+  --table-head-color:rgb(47, 47, 47);
+
   --tt-bg-color: var(--black);
   --tt-border-color: var(--tt-gray-dark-a-200);
   --tt-border-color-tint: var(--tt-gray-dark-a-100);
@@ -225,3 +237,51 @@
   gap: 0.125rem;
 }
 
+/* styles.scss or table.module.scss */
+
+.ProseMirror {
+  .tableWrapper {
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    th,
+    td {
+      border: 1px solid var(--border-color, #e5e7eb); // fallback: Tailwind gray-200
+      padding: 0.75rem;
+      text-align: left;
+      vertical-align: top;
+      word-break: break-word;
+    }
+
+    th {
+      text-align:center;
+      transition-duration: 3ms;
+      transition: all;
+      font-weight: 600;
+      background-color: var(--table-head-color);
+    }
+
+    /* Merge/split indicators */
+    .selectedCell {
+      outline: 2px solid var(--selected-cell-color, #3b82f6); // Tailwind blue-500
+      outline-offset: -1px;
+    }
+
+    .column-resize-handle {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-color: var(--resize-handle-color, #3b82f6);
+      cursor: col-resize;
+      z-index: 10;
+    }
+  }
+}

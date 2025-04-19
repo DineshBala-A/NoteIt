@@ -39,6 +39,21 @@ import { HeadingDropdownMenu } from "@/components/tiptap-ui/heading-dropdown-men
 import { ImageUploadButton } from "@/components/tiptap-ui/image-upload-button"
 import { ListDropdownMenu } from "@/components/tiptap-ui/list-dropdown-menu"
 import { NodeButton } from "@/components/tiptap-ui/node-button"
+
+// --- Taptap Table UI ---
+import Document from '@tiptap/extension-document'
+import Gapcursor from '@tiptap/extension-gapcursor'
+import Paragraph from '@tiptap/extension-paragraph'
+import Table from '@tiptap/extension-table'
+import TableCell from '@tiptap/extension-table-cell'
+import TableHeader from '@tiptap/extension-table-header'
+import TableRow from '@tiptap/extension-table-row'
+import Text from '@tiptap/extension-text'
+
+import { TableToolbar } from "@/components/tiptap-ui/table-button/TableToolbar"
+// import { tableActions } from "@/components/tiptap-ui/table-button/tableActions.ts"
+// import { TableButton } from "@/components/tiptap-ui/table-button/TableButton"
+
 import {
   HighlightPopover,
   HighlightContent,
@@ -73,14 +88,31 @@ import "@/components/tiptap-templates/simple/simple-editor.scss"
 
 import content from "@/components/tiptap-templates/simple/data/content.json"
 
+interface TableButtonProps {
+  toggleTableControls: () => void;
+  state: boolean
+}
+
+const TableControllerButton: React.FC<TableButtonProps> = ({ toggleTableControls, state }) => {
+  return (
+    <>
+      <div className={`select-none font-light text-sm cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 p-[5px] rounded-md transition duration-300 ${state?'bg-stone-200 dark:bg-zinc-700':''}`} onClick={toggleTableControls}>Table Controls</div>
+    </>
+  );
+};
+
 const MainToolbarContent = ({
   onHighlighterClick,
   onLinkClick,
   isMobile,
+  toggleTableControls,
+  showTableController
 }: {
   onHighlighterClick: () => void
   onLinkClick: () => void
   isMobile: boolean
+  toggleTableControls : ()=>void
+  showTableController: boolean
 }) => {
   return (
     <>
@@ -138,6 +170,8 @@ const MainToolbarContent = ({
         <ImageUploadButton text="Add" />
       </ToolbarGroup>
 
+      <ToolbarSeparator/>
+      <TableControllerButton toggleTableControls={toggleTableControls} state={showTableController} />
       <Spacer />
 
       {isMobile && <ToolbarSeparator />}
@@ -177,6 +211,13 @@ const MobileToolbarContent = ({
 export function SimpleEditor() {
   const isMobile = useMobile()
   const windowSize = useWindowSize()
+
+  const [showTableController, setShowTableController] = React.useState<boolean>(false);
+
+  const toggleTableControls = () => {
+    setShowTableController(!showTableController);
+  }
+
   const [mobileView, setMobileView] = React.useState<
     "main" | "highlighter" | "link"
   >("main")
@@ -240,6 +281,17 @@ export function SimpleEditor() {
       }),
       TrailingNode,
       Link.configure({ openOnClick: false }),
+
+      Document,
+      Paragraph,
+      Text,
+      Gapcursor,
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
     ],
     content: content,
   })
@@ -300,6 +352,8 @@ export function SimpleEditor() {
             onHighlighterClick={() => setMobileView("highlighter")}
             onLinkClick={() => setMobileView("link")}
             isMobile={isMobile}
+            toggleTableControls = {toggleTableControls}
+            showTableController = {showTableController}
           />
         ) : (
           <MobileToolbarContent
@@ -309,7 +363,18 @@ export function SimpleEditor() {
         )}
       </Toolbar>
 
-      <div className="content-wrapper">
+      <div className="content-wrapper relative ">
+        {/* TableToolbar */}
+        <div
+          className={`transition-all duration-300 ease-in-out transform sticky top-0 bg-zinc-50 z-40 dark:bg-zinc-800 p-3 rounded overflow-hidden ${
+            showTableController
+              ? 'opacity-100 scale-100 max-h-96 visible pointer-events-auto'
+              : 'opacity-0 scale-95 max-h-0 invisible pointer-events-none'
+          }`}
+        >
+          <TableToolbar editor={editor} />
+        </div>
+
         <EditorContent
           editor={editor}
           role="presentation"
