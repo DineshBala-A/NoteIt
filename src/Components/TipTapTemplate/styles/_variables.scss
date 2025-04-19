@@ -221,6 +221,10 @@
     max-width: 100% !important; 
     width: 100%;
     margin: 0 auto;
+   
+}
+.simple-editor-content .tiptap.ProseMirror{
+  padding-top:0px !important;
 }
 
 .tiptap-toolbar {

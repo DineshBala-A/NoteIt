@@ -14,4 +14,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src/Components/TipTapTemplate/'),
     },
   },
+  server: {
+    host: true, // This allows Vite to bind to all interfaces
+  },
 })
