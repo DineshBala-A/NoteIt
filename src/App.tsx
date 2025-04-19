@@ -4,6 +4,7 @@ import Screen from './Components/Screen';
 import {Routes, Route} from 'react-router-dom';
 import About from './Pages/About';
 import Home from './Pages/Home';
+import Note1 from './Pages/Note1';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           {/* <Route index element={<Home/>}/> */}
           <Route path="" element={<Home />}>
             <Route path="users" element={<Users />} />
+            <Route path="note1" element={<Note1 />} />
             <Route path="settings" element={<Settings />} />
           </Route>
           {/* <Route path="/settings" element={<Settings/>}/> */}

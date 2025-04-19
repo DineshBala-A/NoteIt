@@ -25,14 +25,14 @@ const NavBar: React.FC = () => {
 
   const styles={
     'button': "hover:bg-stone-300 hover:shadow-sm dark:hover:bg-zinc-700 active:opacity-[0.5] p-2 rounded-md transition-all duration-300",
-    'menuButton': "hover:bg-stone-300 hover:shadow-sm dark:hover:bg-zinc-700 active:opacity-[0.5] p-2 rounded-md ",
+    'menuButton': "hover:bg-stone-300 hover:shadow-sm dark:hover:bg-zinc-700 active:opacity-[0.5] p-2 rounded-md z-20",
     'selectedButton': 'underline decoration-amber-300 underline-offset-2'
   }
   const [showThemeButton, setShowThemeButton] = useState<boolean>(false);
   const [showProfileButton, setShowProfileButton] = useState<boolean>(false);
   
   return (
-    <nav className="sticky h-[50px] top-0 w-full flex justify-between items-center px-3 py-2 bg-white dark:bg-zinc-800  dark:text-white text-black shadow-md transition-all duration-300"> 
+    <nav className="sticky h-[50px] top-0 w-full flex justify-between items-center px-3 py-2 bg-white dark:bg-zinc-800  dark:text-white text-black shadow-md transition-all duration-300 z-50"> 
       <div className="flex justify-center items-center gap-4 select-none">
         {/* SideBar */}
         <div  onClick={()=>dispatch(toggle())}>

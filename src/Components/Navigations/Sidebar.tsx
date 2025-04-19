@@ -21,9 +21,9 @@ function Sidebar() {
   return (
     <>
       <div
-        className={`bg-white inset-shadow-xs ring-1 ring-stone-200 dark:ring-zinc-700 dark:bg-zinc-800 h-[calc(100vh-50px)] p-5 overflow-hidden transition-all duration-300 ease-in-out
+        className={`bg-white inset-shadow-xs ring-1 ring-stone-200 dark:ring-zinc-700 dark:bg-zinc-800 h-[calc(100vh-50px)] overflow-hidden transition-all duration-300 ease-in-out
           ${
-            sidebar_state ? 'w-[200px] opacity-100' : 'w-0 opacity-100 ml-[-40px]'//change this closing width & ml to create mini sidebar 
+            sidebar_state ? 'w-3xs opacity-100 p-5' : 'w-0 opacity-100 p-0'//change this closing width & ml to create mini sidebar 
           } `
         }
       >
@@ -33,6 +33,7 @@ function Sidebar() {
           <div className="flex flex-col gap-1">
             <NavLink to="/" className={`${Styles.sidebarButton} ${lastPathName == 'home'? Styles.currentSidebarButton :''}`}>Dashboard</NavLink>
             <NavLink to="/users" className={`${Styles.sidebarButton} ${lastPathName == 'users'? Styles.currentSidebarButton :''}`}>Users</NavLink>
+            <NavLink to="/note1" className={`${Styles.sidebarButton} ${lastPathName == 'note1'? Styles.currentSidebarButton :''}`}>Note1</NavLink>
           </div>
           {/* Bottom */}
           <div className="flex flex-col gap-2 p-2">

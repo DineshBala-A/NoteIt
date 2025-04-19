@@ -7,7 +7,9 @@ function Home() {
     <>
       <div className="flex">
         {/* Sidebar */}
-        <Sidebar />
+        <div>
+          <Sidebar />
+        </div>
 
         {/* Main content */}
         <div className="flex-1 h-[calc(100vh-50px)] p-4">
